@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: stock-platform-with-chatgpt
+Version: 0.0.0
+Summary: Stock Platform with ChatGPT
+Requires-Python: <3.12,>=3.10
+Requires-Dist: pandas>=2.2.0
+Requires-Dist: numpy<2.0.0,>=1.26.0
+Requires-Dist: matplotlib<3.9.0,>=3.7.0
+Requires-Dist: mplfinance>=0.12.10b0
+Requires-Dist: requests>=2.31.0
+Requires-Dist: beautifulsoup4>=4.12.0
+Requires-Dist: lxml>=4.9.0
+Requires-Dist: FinMind>=1.0.0
+Requires-Dist: scikit-learn<1.5.0,>=1.3.0
+Requires-Dist: ta>=0.10.0
+Requires-Dist: cmdstanpy>=1.1.0
+Requires-Dist: prophet==1.1.5
+Requires-Dist: python-dotenv>=1.0.0

@@ -3,6 +3,8 @@ import requests
 import sys
 import json
 import os
+from dotenv import load_dotenv
+load_dotenv()
 def load_llm():
     """
     讀取 LLM 配置檔，並依環境變數覆蓋對應欄位。

@@ -4,6 +4,8 @@ import sys
 import json
 import traceback
 import os
+from dotenv import load_dotenv
+load_dotenv()
 def load_llm():
     base_dir = os.path.dirname(__file__)
     path = os.path.join(base_dir, 'llm_config.json')

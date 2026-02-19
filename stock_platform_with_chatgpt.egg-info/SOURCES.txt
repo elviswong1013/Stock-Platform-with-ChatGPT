@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+stock_platform_with_chatgpt.egg-info/PKG-INFO
+stock_platform_with_chatgpt.egg-info/SOURCES.txt
+stock_platform_with_chatgpt.egg-info/dependency_links.txt
+stock_platform_with_chatgpt.egg-info/requires.txt
+stock_platform_with_chatgpt.egg-info/top_level.txt
