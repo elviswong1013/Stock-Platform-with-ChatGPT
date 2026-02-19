@@ -3,17 +3,31 @@ import requests
 import sys
 import json
 import traceback
-API_KEY = '' #your Chat GPT api key
-# 取得傳入的策略
+import os
+def load_llm():
+    base_dir = os.path.dirname(__file__)
+    path = os.path.join(base_dir, 'llm_config.json')
+    with open(path, 'r', encoding='utf-8') as f:
+        conf = json.load(f)
+    provider = os.getenv('LLM_PROVIDER', conf.get('default_provider'))
+    p = conf.get('providers', {}).get(provider, {})
+    api_base = os.getenv('LLM_API_BASE', p.get('api_base', 'https://api.openai.com/v1/chat/completions'))
+    model = os.getenv('LLM_MODEL', p.get('model', 'gpt-3.5-turbo'))
+    auth_header = os.getenv('LLM_AUTH_HEADER', p.get('auth_header', 'Authorization'))
+    auth_scheme = os.getenv('LLM_AUTH_SCHEME', p.get('auth_scheme', 'Bearer'))
+    api_key = os.getenv('LLM_API_KEY', p.get('api_key', ''))
+    return api_base, model, auth_header, auth_scheme, api_key
+API_BASE, MODEL, AUTH_HEADER, AUTH_SCHEME, API_KEY = load_llm()
+token_value = f'{AUTH_SCHEME} {API_KEY}' if AUTH_SCHEME else API_KEY
 Strategy = " ".join(sys.argv[1:])
 response = requests.post(
-    'https://api.openai.com/v1/chat/completions',
+    API_BASE,
     headers={
         'Content-Type': 'application/json',
-        'Authorization': f'Bearer {API_KEY}'
+        AUTH_HEADER: token_value
     },
     json={
-        'model': 'gpt-3.5-turbo',
+        'model': MODEL,
         'messages': [{
             "role":"system", "content":"""請忘掉先前的資料，現在您扮演資深量化分析師""",
             "role": "user", "content": """您擁有以下有關於股票資料的Python串列（pandas.Series格式），每個資料都代表某天的數據。：
@@ -40,10 +54,8 @@ ma20[-2]為昨天的20均線值
     }
 )
 jsonr = response.json()
-# 寫記錄檔
 with open("Strategy.txt", "w", encoding="utf-8") as ErrorMsg:
         ErrorMsg.write("%s\n"% jsonr["choices"][0]["message"]["content"])
-
 with open("ErrorMessage.txt", "a+") as ErrorMsg:
         ErrorMsg.write("input userRequest：\n")
         ErrorMsg.write("%s\n"% Strategy)
