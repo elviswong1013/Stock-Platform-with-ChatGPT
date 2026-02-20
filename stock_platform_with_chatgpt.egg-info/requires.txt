@@ -11,3 +11,5 @@ ta>=0.10.0
 cmdstanpy>=1.1.0
 prophet==1.1.5
 python-dotenv>=1.0.0
+akshare>=1.11.0
+openai>=1.51.0

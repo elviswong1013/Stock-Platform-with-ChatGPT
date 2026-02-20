@@ -1,20 +1,25 @@
-from FinMind.data import DataLoader
 import mplfinance as mpf
 import pandas as pd
 import os
 import requests as request
-
-FM = DataLoader()
-FM.login(user_id="???", password="???") #finMind帳號登入
+import akshare as ak
 # 取得資料
 def getData(prod, st, ed):
-    tempdata = FM.taiwan_stock_daily(stock_id=prod, start_date=st, end_date=ed) #API取得資料
-    tempdata = tempdata.rename(columns={'max':'high', 'min':'low', 'Trading_Volume':'volume'}) #重新命名
-    tempdata['date'] = pd.to_datetime(tempdata['date']) #轉為datetime型態
-    tempdata = tempdata.set_index(tempdata['date']) #設定date為index
-    #取必要欄位
-    tempdata = tempdata[['open', 'high', 'low', 'close', 'volume']]
-    return tempdata
+    try:
+        df = ak.stock_zh_a_hist(symbol=str(prod), period="daily", start_date=st.replace("-", ""), end_date=ed.replace("-", ""), adjust="")
+        if "日期" in df.columns:
+            df["date"] = pd.to_datetime(df["日期"])
+        else:
+            df["date"] = pd.to_datetime(df["date"])
+        df = df.set_index(df["date"])
+        if all(col in df.columns for col in ["开盘","最高","最低","收盘","成交量"]):
+            df = df[["开盘","最高","最低","收盘","成交量"]].copy()
+            df.columns = ["open","high","low","close","volume"]
+        else:
+            df = df[["open","high","low","close","volume"]].copy()
+        return df
+    except Exception:
+        return pd.DataFrame(columns=["open","high","low","close","volume"])
 
 
 
@@ -91,11 +96,10 @@ def getStockList():
     if(os.path.exists(bakfile)):
         df = pd.read_csv(bakfile)
     else:
-        res = request.get('https://isin.twse.com.tw/isin/C_public.jsp?strMode=2')
-        df = pd.read_html(res.text)[0]
-        df.columns = df.iloc[0]
-        df = df[2:]
-        df = df.dropna(thresh=3, axis = 0).dropna(thresh=3, axis = 1)
+        try:
+            df = ak.stock_tw_stock_info()
+        except Exception:
+            df = ak.stock_info_a_code_name()
         df.to_csv(bakfile)
     return df
 

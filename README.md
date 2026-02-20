@@ -44,16 +44,15 @@ mplfinance
 json
 sys
 traceback
-FinMind.data
 os
 requests
+akshare
 ```
 
 ## 股價資料來源
 
-本專案之股票原始資料來源為<FinMind 金融 X 大數據>網站提供之API，包含股票的開盤、最高、最低、收盤價及交易量等資料
-
-[FinMind](https://finmindtrade.com/)
+本專案使用 Akshare 介面取得股票資料（如股票清單、歷史行情等），包含開盤、最高、最低、收盤價及交易量等欄位
+[Akshare](https://akshare.akfamily.xyz/)
 
 ## ChatGPT API
 
