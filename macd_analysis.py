@@ -230,6 +230,8 @@ def main():
                     counter += 1
                 # if counter >= 2:
                 #     break
+
+                
     print(f"Total tokens: {total_tokens}")
     print(f"Total output tokens: {total_output_tokens}")
     print(f"Total input tokens: {total_input_tokens}")

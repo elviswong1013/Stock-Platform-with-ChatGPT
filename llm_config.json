@@ -2,38 +2,28 @@
   "default_provider": "openai",
   "providers": {
     "openai": {
-      "api_base": "https://api.openai.com/v1/chat/completions",
+      "api_base": "https://api.openai.com/v1",
       "model": "gpt-3.5-turbo",
-      "auth_header": "Authorization",
-      "auth_scheme": "Bearer",
       "api_key": ""
     },
     "azure": {
-      "api_base": "https://{resource}.openai.azure.com/openai/deployments/{deployment}/chat/completions?api-version=2023-05-15",
+      "api_base": "https://{resource}.openai.azure.com/openai/deployments/{deployment}?api-version=2023-05-15",
       "model": "{deployment}",
-      "auth_header": "api-key",
-      "auth_scheme": "",
       "api_key": ""
     },
     "openrouter": {
-      "api_base": "https://openrouter.ai/api/v1/chat/completions",
+      "api_base": "https://openrouter.ai/api/v1",
       "model": "openrouter/anthropic:claude-3.5-sonnet",
-      "auth_header": "Authorization",
-      "auth_scheme": "Bearer",
       "api_key": ""
     },
     "groq": {
-      "api_base": "https://api.groq.com/openai/v1/chat/completions",
+      "api_base": "https://api.groq.com/openai/v1",
       "model": "llama-3.1-70b-versatile",
-      "auth_header": "Authorization",
-      "auth_scheme": "Bearer",
       "api_key": ""
     },
     "local": {
-      "api_base": "http://localhost:1234/v1/chat/completions",
+      "api_base": "http://localhost:1234/v1",
       "model": "local-model",
-      "auth_header": "Authorization",
-      "auth_scheme": "",
       "api_key": ""
     }
   }

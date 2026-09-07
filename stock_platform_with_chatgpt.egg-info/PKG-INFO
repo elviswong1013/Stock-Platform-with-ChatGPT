@@ -16,3 +16,5 @@ Requires-Dist: ta>=0.10.0
 Requires-Dist: cmdstanpy>=1.1.0
 Requires-Dist: prophet==1.1.5
 Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: akshare>=1.11.0
+Requires-Dist: openai>=1.51.0
